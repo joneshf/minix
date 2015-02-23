@@ -893,7 +893,6 @@ int mini_send(
 #endif
   }
 
-  printf("%s wants to send a message to %s\n", caller_ptr->p_name, dst_ptr->p_name);
   message_matrix[caller_ptr->p_nr + NR_TASKS][dst_ptr->p_nr + NR_TASKS]++;
 
   return(OK);
