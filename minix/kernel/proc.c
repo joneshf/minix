@@ -851,8 +851,6 @@ int mini_send(
 
 	RTS_UNSET(dst_ptr, RTS_RECEIVING);
 
-	message_matrix[caller_ptr->p_nr + NR_TASKS][dst_ptr->p_nr + NR_TASKS]++;
-
 #if DEBUG_IPC_HOOK
 	hook_ipc_msgsend(&dst_ptr->p_delivermsg, caller_ptr, dst_ptr);
 	hook_ipc_msgrecv(&dst_ptr->p_delivermsg, caller_ptr, dst_ptr);
@@ -894,6 +892,10 @@ int mini_send(
 	hook_ipc_msgsend(&caller_ptr->p_sendmsg, caller_ptr, dst_ptr);
 #endif
   }
+
+  printf("%s wants to send a message to %s\n", caller_ptr->p_name, dst_ptr->p_name);
+  message_matrix[caller_ptr->p_nr + NR_TASKS][dst_ptr->p_nr + NR_TASKS]++;
+
   return(OK);
 }
 
