@@ -407,7 +407,7 @@ void message_matrix_dmp(void)
   }
 
   printf("Looking at the messages sent between processes.\n\n");
-  for (rp = BEG_PROC_ADDR; rp < 9; rp++) {
+  for (rp = BEG_PROC_ADDR; rp < &proc[9]; rp++) {
   	printf("%-7.7s", rp->p_name);
   }
   printf("\n");
