@@ -21,9 +21,9 @@ struct rusage;
 
 #define SYSTASK SYSTEM
 
-/*==========================================================================* 
+/*==========================================================================*
  * Minix system library. 						    *
- *==========================================================================*/ 
+ *==========================================================================*/
 int _taskcall(endpoint_t who, int syscallnr, message *msgptr);
 int _kernel_call(int syscallnr, message *msgptr);
 
@@ -31,7 +31,7 @@ int sys_abort(int how);
 int sys_enable_iop(endpoint_t proc_ep);
 int sys_exec(endpoint_t proc_ep, vir_bytes stack_ptr, vir_bytes progname,
 	vir_bytes pc, vir_bytes ps_str);
-int sys_fork(endpoint_t parent, endpoint_t child, endpoint_t *, 
+int sys_fork(endpoint_t parent, endpoint_t child, endpoint_t *,
 	u32_t vm, vir_bytes *);
 int sys_clear(endpoint_t proc_ep);
 int sys_exit(void);
@@ -113,9 +113,9 @@ int sys_vtimer(endpoint_t proc_nr, int which, clock_t *newval, clock_t
 
 /* Shorthands for sys_irqctl() system call. */
 #define sys_irqdisable(hook_id) \
-    sys_irqctl(IRQ_DISABLE, 0, 0, hook_id) 
+    sys_irqctl(IRQ_DISABLE, 0, 0, hook_id)
 #define sys_irqenable(hook_id) \
-    sys_irqctl(IRQ_ENABLE, 0, 0, hook_id) 
+    sys_irqctl(IRQ_ENABLE, 0, 0, hook_id)
 #define sys_irqsetpolicy(irq_vec, policy, hook_id) \
     sys_irqctl(IRQ_SETPOLICY, irq_vec, policy, hook_id)
 #define sys_irqrmpolicy(hook_id) \
@@ -187,6 +187,7 @@ int sys_diagctl(int ctl, char *arg1, int arg2);
 #define sys_getidletsc(dst)	sys_getinfo(GET_IDLETSC, dst, 0,0,0)
 #define sys_getregs(dst,nr)	sys_getinfo(GET_REGS, dst, 0,0, nr)
 #define sys_getrusage(dst, nr)  sys_getinfo(GET_RUSAGE, dst, 0,0, nr)
+#define sys_getmatrix(dst)	sys_getinfo(GET_MATRIX, dst, 0,0,0)
 int sys_getinfo(int request, void *val_ptr, int val_len, void *val_ptr2,
 	int val_len2);
 int sys_whoami(endpoint_t *ep, char *name, int namelen, int

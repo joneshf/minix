@@ -49,7 +49,7 @@ int do_getinfo(struct proc * caller, message * m_ptr)
  * call simply copies entire data structures to the caller.
  */
   size_t length;
-  vir_bytes src_vir; 
+  vir_bytes src_vir;
   int nr_e, nr, r;
   int wipe_rnd_bin = -1;
   struct proc *p;
@@ -143,7 +143,7 @@ int do_getinfo(struct proc * caller, message * m_ptr)
 	length = sizeof(kinfo.param_buf);
         break;
     }
-    case GET_RANDOMNESS: {		
+    case GET_RANDOMNESS: {
         static struct k_randomness copy;	/* copy to keep counters */
 	int i;
 
@@ -156,7 +156,7 @@ int do_getinfo(struct proc * caller, message * m_ptr)
     	src_vir = (vir_bytes) &copy;
     	break;
     }
-    case GET_RANDOMNESS_BIN: {		
+    case GET_RANDOMNESS_BIN: {
 	int bin = m_ptr->m_lsys_krn_sys_getinfo.val_len2_e;
 
 	if(bin < 0 || bin >= RANDOM_SOURCES) {
@@ -212,6 +212,11 @@ int do_getinfo(struct proc * caller, message * m_ptr)
 	r_usage.ru_nsignals = target->p_signal_received;
 	src_vir = (vir_bytes) &r_usage;
 	break;
+    }
+    case GET_MATRIX: {
+	length = sizeof(message_matrix);
+    	src_vir = (vir_bytes) &message_matrix;
+    	break;
     }
     default:
 	printf("do_getinfo: invalid request %d\n",

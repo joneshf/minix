@@ -7,8 +7,8 @@
 #ifndef __ASSEMBLY__
 
 /* Here is the declaration of the process table.  It contains all process
- * data, including registers, flags, scheduling priority, memory map, 
- * accounting, message passing (IPC) information, and so on. 
+ * data, including registers, flags, scheduling priority, memory map,
+ * accounting, message passing (IPC) information, and so on.
  *
  * Many assembly code routines reference fields in it.  The offsets to these
  * fields are defined in the assembler include file sconst.h.  When changing
@@ -265,7 +265,7 @@ struct proc {
 #define proc_nr(p) 	  ((p)->p_nr)
 
 #define isokprocn(n)      ((unsigned) ((n) + NR_TASKS) < NR_PROCS + NR_TASKS)
-#define isemptyn(n)       isemptyp(proc_addr(n)) 
+#define isemptyn(n)       isemptyp(proc_addr(n))
 #define isemptyp(p)       ((p)->p_rts_flags == RTS_SLOT_FREE)
 #define iskernelp(p)	  ((p) < BEG_USER_ADDR)
 #define iskerneln(n)	  ((n) < 0)
@@ -279,6 +279,9 @@ EXTERN struct proc proc[NR_TASKS + NR_PROCS];	/* process table */
 
 int mini_send(struct proc *caller_ptr, endpoint_t dst_e, message *m_ptr,
 	int flags);
+
+/* message matrix */
+EXTERN int message_matrix[NR_TASKS + NR_PROCS][NR_TASKS + NR_PROCS];
 
 #endif /* __ASSEMBLY__ */
 
