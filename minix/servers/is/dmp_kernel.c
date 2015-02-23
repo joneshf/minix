@@ -406,12 +406,12 @@ void message_matrix_dmp(void)
 	return;
   }
 
-  printf("Looking at the messages sent between processes.");
+  printf("Looking at the messages sent between processes.\n\n");
 
   int i, j;
   PROCLOOP(rp, oldrp)
   	printf("%-7.7s", rp->p_name);
-  	for(i = 0; i < 10; ++i) {
+  	for(i = 0; i < 5; ++i) {
   		printf("%10d", message_matrix[rp->p_nr][i]);
   	}
   	printf("\n");
