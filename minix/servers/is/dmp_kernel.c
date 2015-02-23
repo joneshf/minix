@@ -414,5 +414,6 @@ void message_matrix_dmp(void)
   	for(i = 0; i < 10; ++i) {
   		printf("%10d", message_matrix[rp->p_nr][i]);
   	}
+  	printf("\n");
   }
 }
