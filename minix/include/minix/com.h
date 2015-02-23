@@ -28,7 +28,6 @@
  *   0x1400 - 0x14FF	Real Time Clock requests and responses
  *   0x1500 - 0x15FF	Input server messages
  *   0x1600 - 0x16FF	VirtualBox (VBOX) requests (see vboxif.h)
- *   0x1700 - 0x17FF    Messages for process matrix.
  *
  * Zero and negative values are widely used for OK and error responses.
  */
@@ -333,6 +332,7 @@
 #   define GET_CPUINFO    23    /* get information about cpus */
 #   define GET_REGS	  24	/* get general process registers */
 #   define GET_RUSAGE	  25	/* get resource usage */
+#   define GET_MATRIX	  26	/* get message matrix */
 
 /* Subfunctions for SYS_PRIVCTL */
 #define SYS_PRIV_ALLOW		1	/* Allow process to run */
@@ -967,11 +967,5 @@
  *===========================================================================*/
 
 #define SUSPEND 	 -998 	/* status to suspend caller, reply later */
-
-/*===========================================================================*
- *      Messages for counting messages passed                                *
- *===========================================================================*/
-
-#define GET_MATRIX  0 /* Get the actual matrix */
 
 #endif /* !_MINIX_COM_H */
