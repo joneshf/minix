@@ -406,7 +406,7 @@ void message_matrix_dmp(void)
 	return;
   }
 
-  printf("Looking at the messages sent between processes.\n\n");
+  printf("Looking at the messages sent between processes.\n\n      ");
   for (rp = BEG_PROC_ADDR; rp < &proc[9]; rp++) {
   	printf("%-7.7s", rp->p_name);
   }
@@ -415,8 +415,8 @@ void message_matrix_dmp(void)
   int i, j;
   PROCLOOP(rp, oldrp)
   	printf("%-7.7s", rp->p_name);
-  	for(i = 0; i < 5; ++i) {
-  		printf("%7d", message_matrix[rp->p_nr][i]);
+  	for(i = 0; i < 9; ++i) {
+  		printf("%-7d", message_matrix[rp->p_nr][i]);
   	}
   	printf("\n");
   }
