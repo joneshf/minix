@@ -55,7 +55,7 @@ struct proc proc[NR_TASKS + NR_PROCS];
 struct priv priv[NR_SYS_PROCS];
 struct boot_image image[NR_BOOT_PROCS];
 
-int message_matrix[NR_TASKS + NR_PROCS][NR_TASKS + NR_PROCS];
+int message_matrix[NR_TASKS + NR_PROCS][NR_TASKS + NR_PROCS] = {{0}};
 
 extern struct minix_kerninfo *_minix_kerninfo;
 
@@ -406,7 +406,7 @@ void message_matrix_dmp(void)
 	return;
   }
 
-  printf("Looking at the messages sent between processes.\n\n      ");
+  printf("Looking at the messages sent between processes.\n           ");
   for (rp = BEG_PROC_ADDR; rp < &proc[9]; rp++) {
   	printf("%-7.7s", rp->p_name);
   }
@@ -414,7 +414,7 @@ void message_matrix_dmp(void)
 
   int i, j;
   PROCLOOP(rp, oldrp)
-  	printf("%-7.7s", rp->p_name);
+  	printf("%-8s", rp->p_name);
   	for(i = 0; i < 9; ++i) {
   		printf("%-7d", message_matrix[rp->p_nr][i]);
   	}
