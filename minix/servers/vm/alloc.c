@@ -248,6 +248,7 @@ phys_clicks alloc_mem(phys_clicks clicks, u32_t memflags)
  * needed for FORK or EXEC.
  */
   phys_clicks mem = NO_MEM, align_clicks = 0;
+  phys_clicks max_mem = NO_MEM;
 
   if(memflags & PAF_ALIGN64K) {
   	align_clicks = (64 * 1024) / CLICK_SIZE;
@@ -258,8 +259,17 @@ phys_clicks alloc_mem(phys_clicks clicks, u32_t memflags)
   }
 
   do {
-	mem = alloc_pages(clicks, memflags);
-  } while(mem == NO_MEM && cache_freepages(clicks) > 0);
+  	// iterate the whole map
+  	mem = alloc_pages(clicks, memflags);
+  	max_mem = mem > max_mem ? mem : max_mem;
+  } while(cache_freepages(clicks) > 0);
+  // we wait until we've reached the end of everything.
+  // Set the mem to the maximum one we measured.
+  mem = max_mem;
+
+ //  do {
+	// mem = alloc_pages(clicks, memflags);
+ //  } while(mem == NO_MEM && cache_freepages(clicks) > 0);
 
   if(mem == NO_MEM)
   	return mem;
@@ -452,7 +462,7 @@ static phys_bytes alloc_pages(int pages, int memflags)
 	if(memflags & PAF_CLEAR) {
 		int s;
 		if ((s= sys_memset(NONE, 0, CLICK_SIZE*mem,
-			VM_PAGE_SIZE*pages)) != OK) 
+			VM_PAGE_SIZE*pages)) != OK)
 			panic("alloc_mem: sys_memset failed: %d", s);
 	}
 
